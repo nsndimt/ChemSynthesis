@@ -1,3 +1,9 @@
+Code for "From Literature to Lab: LLM powered catalyst synthesis Protocol Generation"
+
+Dataset are hosted at Zenodo:
+
+Due to copyright issues, please email us to get download access of the zenodo dataset.
+
 # Environment Setup
 First, load the required system modules and create a dedicated conda environment.
 ```shell
@@ -29,8 +35,9 @@ pip install --no-deps -e .
 # Dataset Preparation
 
 1. Create a directory for checkpoints and datasets: ``mkdir checkpoint_llamafactory``
-
-2. Place all your training/evaluation and dataset description JSON files inside ``checkpoint_llamafactory`` folder; Keep the Slurm and training scripts in the repo (``LLaMA-Factory``) root.:
+2. Download ``llamafactory_dataset.tar.gz`` from Zenodo Dataset and unzip this file
+3. Place all your training/evaluation and dataset description JSON files inside ``checkpoint_llamafactory`` folder; 
+4. Keep the Slurm and training scripts in the repo (``LLaMA-Factory``) root.:
 
 ```bash
 stage1.slurm
@@ -43,18 +50,36 @@ checkpoint_llamafactory/
   ├── stage2_train.json
   ├── stage2_eval.json
   ├── dataset_info.json
+  ├── Llama-3.3-70b-instruct_stage2_pred.json
+  ......
 ```
 
-# Training Script
+# Training/Testing Script
 
 The main training pipeline is defined in ``stage1.sh`` and ``stage2.sh``. It performs:
 - Model download from Hugging Face Hub
 - LoRA fine-tuning with DeepSpeed
 - Adapter export and LoRA merging
 - Evaluation with vllm_infer.py
-- Syncing checkpoints back to $HOME/checkpoint_llamafactory
+- Syncing checkpoints/logs/predictions back to ``$HOME/checkpoint_llamafactory``
 
+## End-to-End Testing
 
+Stage 2 cannot be directly tested using ``stage2_eval.json`` since it is human annotated, not the actuall prediction of LLM.
+
+Users should collect ``pred.jsonl`` from Stage 1 LLM folders under ``$HOME/checkpoint_llamafactory``
+
+To enable these prediction to be used by LLaMA-Factory, they must be registered in ``dataset_info.json`` by adding a entry of its name and path
+
+```json
+    "Llama-3.3-70b-instruct_stage2_pred": {
+        "file_name": "Llama-3.3-70b-instruct_stage2_pred.json"
+    }
+```
+### Reproduce Stage 2 Prediction
+All stage 1 LLM predictions (e.g., ``Llama-3.3-70b-instruct_stage2_pred.json``) used in the paper are included in ``llamafactory_dataset.tar.gz``.
+
+So users can directly reproduce our prediction without training/testing Stage 1 LLM first.
 
 # Slurm Job Scirpt
 Submit training jobs using ``stage1.slurm`` and ``stage2.slurm``
