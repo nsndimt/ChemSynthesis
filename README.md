@@ -1,8 +1,8 @@
 Code for "From Literature to Lab: LLM powered catalyst synthesis Protocol Generation"
 
-Dataset are hosted at Zenodo:
+Dataset are hosted at Zenodo [URL](https://zenodo.org/records/16948950)
 
-Due to copyright issues, please email us to get download access of the zenodo dataset.
+Due to copyright issues, please email [zhangyue@udel.edu](mailto:zhangyue@udel.edu) or [hfang@udel.edu](mailto:hfang@udel.edu)  to get download access of the zenodo dataset.
 
 # Environment Setup
 First, load the required system modules and create a dedicated conda environment.
