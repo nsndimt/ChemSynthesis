@@ -1,4 +1,6 @@
-Code for "From Literature to Lab: LLM powered catalyst synthesis Protocol Generation"
+# From Literature to Lab: LLM powered catalyst synthesis Protocol Generation
+
+Code files and bash scripts are host in this repo
 
 Dataset are hosted at Zenodo [URL](https://zenodo.org/records/16948950)
 
