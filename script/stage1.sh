@@ -1,10 +1,11 @@
 export HF_HOME="/tmp/.cache/huggingface"
-# modify as you will
-export LLAMA_MODEL_NAME="meta-llama/Llama-3.1-8B"
-export CKPT_DIR="Llama-3.1-8b_stage1_lora_rank32_bsz_4_epoch3_lr1e-4_dropout0"
+# Set this to the Hugging Face model used for training or inference.
+# Replace the default value below with another compatible model if needed
+export LLAMA_MODEL_NAME="meta-llama/Llama-3.3-70B-instruct"
+export CKPT_DIR="Llama-3.3-70b-instruct_stage1_lora_rank32_bsz_4_epoch3_lr1e-4_dropout0"
 export HF_TOKEN="Your Huggingface Token"
 
-# If you have previously downloaded the LLM, you can choose to not skip this command and point HF_HOME to your download path
+# If you have previously downloaded the LLM, you can choose to skip following commands and point HF_HOME to your download path
 mkdir -p /tmp/.cache/huggingface
 huggingface-cli download $LLAMA_MODEL_NAME --exclude "original/*"
 
